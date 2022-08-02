@@ -5,15 +5,25 @@ require("./db/conn");
 const app = express();
 const port = process.env.PORT || 3000;
 
-// middle ware setting the path
-const staticPath = path.join(__dirname, "../public");
-app.use(express.static(staticPath))
+// setting the path
+// const staticPath = path.join(__dirname, "../public");
+
+// middleware
+app.use('/css', express.static(path.join(__dirname, "../node_modules/bootstrap/dist/css")))
+app.use('/js', express.static(path.join(__dirname, "../node_modules/bootstrap/dist/js")))
+app.use('/jq', express.static(path.join(__dirname, "../node_modules/jquery/dist")))
+// app.use(express.static(staticPath))
+app.set("view engine", "hbs");
+
 
 //routing
 //app.get(path, callback)
 
 app.get('/',(req,res)=>{
-    res.send("Hi");
+    res.render('index');
+})
+app.get('/contact',(req,res)=>{
+    res.render("contact");
 })
 
 // Server create
